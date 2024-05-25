@@ -1,4 +1,4 @@
-//
+// 
 !function (e) {
 
     var t = {};
@@ -332,6 +332,7 @@
             return t = "right" === e ? 1 : -1, this.current.some(e => a.blocks[this.position + e + t].classList.contains("taken"))
         }
     };
+    // input.js: Xử lí sự kiện đầu vào
     var d = i(4);
     let l = 37, m = 39, c = 40, u = 32, h = 90, p = 88, g = 67;
     const y = {
