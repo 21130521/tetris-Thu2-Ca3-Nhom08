@@ -346,12 +346,12 @@
     // input.js: Xử lí sự kiện đầu vào
     var d = i(4);
     // Mũi tên trái, Mũi tên phải, Mũi tên xuống, Mũi tên lên (để thả khối nhanh xuống), Phím 'A' để xoay trái, Phím 'Z' để xoay phải, Phím 'E' để lưu khối
-    let l = 37, m = 39, c = 40, u = 32, h = 90, p = 88, g = 67;
+    let l = 37, m = 39, c = 40, u = 38, h = 65, p = 90, g = 69;
     const y = {
         handleKeyPress(e) {
-            "play" === S.gameStatut && (e.keyCode === l && r.moveLeft(), e.keyCode === m && r.moveRight(), e.keyCode === c && r.pushDown(), e.keyCode === u && r.dropDown(), e.keyCode === h && r.rotateTetromino("left"), e.keyCode === p && r.rotateTetromino("right"), e.keyCode === g && S.saveTetromino())
+            "play" === S.gameStatut && (e.keyCode === l && r.moveLeft(), e.keyCode === m && r.moveRight(), e.keyCode === c && r.pushDown(), e.keyCode === u && r.smackDown(), e.keyCode === h && r.rotateTetromino("left"), e.keyCode === p && r.rotateTetromino("right"), e.keyCode === g && S.saveTetromino())
         }, handleTouchPress(e) {
-            "play" === S.gameStatut && ("controlRight" === e.target.id && r.moveRight(), "controlLeft" === e.target.id && r.moveLeft(), "controlDown" === e.target.id && r.pushDown(), "controlUp" === e.target.id && r.dropDown(), "controlRotRight" === e.target.id && r.rotateTetromino("right"), "controlRotLeft" === e.target.id && r.rotateTetromino("left"), "controlSave" === e.target.id && S.saveTetromino())
+            "play" === S.gameStatut && ("controlRight" === e.target.id && r.moveRight(), "controlLeft" === e.target.id && r.moveLeft(), "controlDown" === e.target.id && r.pushDown(), "controlUp" === e.target.id && r.smackDown(), "controlRotRight" === e.target.id && r.rotateTetromino("right"), "controlRotLeft" === e.target.id && r.rotateTetromino("left"), "controlSave" === e.target.id && S.saveTetromino())
         }, handleStart() {
             S.start()
         }, handleReset() {
