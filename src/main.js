@@ -40,27 +40,31 @@
         return r
     }));
     var n = i(2), s = i(3), o = i(4), a = i(1);
+    // config.js: Khởi tạo trò chơi
     const r = {
         blockSize: 25,
         maxBlockSize: 26,
         minBlockSize: 10,
         rows: 20,
         columns: 10,
+          // Cài đặt độ chính xác của bộ đếm thời gian tính bằng mili giây
         timerCountPrecision: 10,
         timerDisplayPrecision: 1e3,
+        // Các mức tốc độ của Game
         speedArray: [2360, 1460, 920, 590, 388, 259.8, 177.5, 123.6, 87.9, 63.61, 46.93, 35.256, 26.977, 21.017, 16.67],
         devMode: !1,
-        deletionAnimationSpeed: 500,
-        previewSize: 4,
-        detectDevice: () => navigator.maxTouchPoints ? "mobile" : "computer",
+        deletionAnimationSpeed: 500,// Tốc độ của hoạt ảnh xóa
+        previewSize: 4, // Kích thước của cửa sổ xem trước các khối sắp tới
+        detectDevice: () => navigator.maxTouchPoints ? "mobile" : "computer", // Hàm để phát hiện loại thiết bị (di động hoặc máy tính)
         gameMode: {
             endless: {
-                increaseSpeedValue: 1, linesToIncreaseSpeed: 10, initSpeed: 3, display() {
+                increaseSpeedValue: 1, linesToIncreaseSpeed: 10, initSpeed: 3, display() { // Cập nhật hiển thị dựa trên chế độ trò chơi
                     document.getElementById("timerBox").classList.add("hide"), document.getElementById("timerTitle").classList.add("hide"), document.getElementById("scoreBox").classList.remove("hide"), document.getElementById("scoreTitle").classList.remove("hide")
-                }, init() {
+                }, init() {  // Khởi tạo chế độ trò chơi, cài đặt tốc độ, bộ đếm thời gian và các cài đặt ban đầu khác
                     n.game.speed = this.initSpeed, this.display(), a.a.playingTheme = a.a.theme1
                 }, start() {
-                }, pause: () => !1, lineCheck(e) {
+                }, pause: () => !1, lineCheck(e) { // Kiểm tra nếu các dòng cần xóa có kích hoạt tăng tốc độ
+                     // tăng tốc mỗi khi được 10 dòng
                     e.some((e, t) => (n.game.lines + t + 1) % this.linesToIncreaseSpeed == 0 && n.game.lines > 0) && n.game.increaseSpeed(this.increaseSpeedValue)
                 }, end: () => !1, displayScore() {
                     o.display.endGame(!0, "GAME END", n.game.gameScore)
@@ -68,7 +72,7 @@
             },
             rush: {
                 initSpeed: 6,
-                initTimer: 60,
+                initTimer: 60,// 60s
                 increaseSpeedValue: 1,
                 linesToIncreaseSpeed: 5,
                 display() {
@@ -121,11 +125,13 @@
             }
         }
     }
+    // config.js: end
 }, function (e, t, i) {
     "use strict";
     i.d(t, "a", (function () {
         return n
     }));
+    // audio.js: Khởi tạo âm thanh cho trò chơi
     let n = {
         theme1: new Audio("./sound/origTheme.mp3"),
         land: new Audio("./sound/samples/land.mp3"),
@@ -161,12 +167,14 @@
             this.musicEnabled = !!e
         }
     }
+    // audio.js: end
 }, function (e, t, i) {
     "use strict";
     i.r(t), i.d(t, "game", (function () {
         return S
     }));
     var n = i(0), s = i(3), o = i(1);
+    // playground.js: quản lý và tạo ra các lưới trò chơi, bao gồm lưới chơi chính, lưới xem trước và lưới lưu trữ
     const a = {
         blocks: [], preview: [], deletingAnimation: "init", setBlockWidth() {
             const e = document.documentElement.clientWidth || document.body.clientWidth,
@@ -237,28 +245,30 @@
                 }
             }
         }
+        // playground.js: end
+        // tetrominoes.js: tất cả các thuộc tính và phương thức cần thiết để quản lý các tetromino
     }, r = {
         number: 0,
-        position: 0,
-        rotation: 0,
+        position: 0, // Vị trí hiện tại của tetromino trên lưới
+        rotation: 0, // Trạng thái xoay hiện tại
         current: [],
         canBeSaved: !0,
         canMoveDown: !0,
         saved: {},
-        next: {},
-        theTetrominoes: [],
-        theTetrominoesPreview: [],
+        next: {}, // Lưu trữ thông tin tetromino tiếp theo
+        theTetrominoes: [], // Mảng chứa tất cả các hình dạng tetromino và các trạng thái xoay của chúng
+        theTetrominoesPreview: [], // Mảng chứa các hình dạng tetromino và các trạng thái xoay để xem trước
         createTetrominoes: e => [[[1, e + 1, 2 * e + 1, 3 * e + 1], [0, 1, 2, 3], [1, e + 1, 2 * e + 1, 3 * e + 1], [0, 1, 2, 3]], [[0, e, e + 1, e + 2], [1, 2, e + 1, 2 * e + 1], [0, 1, 2, e + 2], [1, e + 1, 2 * e, 2 * e + 1]], [[2, e, e + 1, e + 2], [1, e + 1, 2 * e + 1, 2 * e + 2], [0, 1, 2, e], [0, 1, e + 1, 2 * e + 1]], [[1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2]], [[1, 2, e, e + 1], [1, e + 1, e + 2, 2 * e + 2], [1, 2, e, e + 1], [1, e + 1, e + 2, 2 * e + 2]], [[0, 1, e + 1, e + 2], [2, e + 1, e + 2, 2 * e + 1], [0, 1, e + 1, e + 2], [2, e + 1, e + 2, 2 * e + 1]], [[1, e, e + 1, e + 2], [1, e + 1, e + 2, 2 * e + 1], [0, 1, 2, e + 1], [2, e + 1, e + 2, 2 * e + 2]]],
-        initPreview() {
+        initPreview() { // Khởi tạo tetromino tiếp theo để xem trước
             const e = Math.floor(Math.random() * this.theTetrominoes.length),
                 t = Math.floor(Math.random() * this.theTetrominoes[this.number].length),
                 i = this.theTetrominoesPreview[e][t];
             this.next = {number: e, rotation: t, tetromino: i}
         },
-        initSaved() {
+        initSaved() { // Khởi tạo tetromino đã lưu với các giá trị mặc định
             this.saved = {number: 0, rotation: 0, tetromino: []}
         },
-        initTetromino() {
+        initTetromino() { // Khởi tạo một tetromino mới nếu trạng thái trò chơi là 'notStarted'
             "notStarted" === S.gameStatut && (this.theTetrominoes = this.createTetrominoes(n.init.columns), this.theTetrominoesPreview = this.createTetrominoes(n.init.previewSize), this.initPreview()), this.number = this.next.number, this.rotation = this.next.rotation, this.position = Math.floor(n.init.columns / 2 - 1), this.canBeSaved = !0, this.canMoveDown = !0, this.initPreview(), this.current = this.theTetrominoes[this.number][this.rotation]
         },
         saveTetromino() {
@@ -268,11 +278,11 @@
                 tetromino: this.theTetrominoesPreview[this.number][this.rotation]
             }
         },
-        switchSaved() {
+        switchSaved() { // Chuyển đổi tetromino hiện tại với tetromino đã lưu.
             const e = this.saved;
             this.saveTetromino(), this.number = e.number, this.rotation = e.rotation, this.current = this.theTetrominoes[this.number][this.rotation], this.position = Math.floor(n.init.columns / 2 - 1), this.canBeSaved = !1, this.canMoveDown = !0
         },
-        rotateTetromino(e) {
+        rotateTetromino(e) { // Xoay tetromino sang trái hoặc phải dựa trên hướng
             let t = this.rotation;
             "right" === e ? t++ : t--, t >= this.theTetrominoes[this.number].length && (t = 0), t < 0 && (t = this.theTetrominoes[this.number].length - 1);
             const i = this.theTetrominoes[this.number][t],
@@ -281,59 +291,61 @@
                 d = i.some(e => (e + this.position + 1) % n.init.columns == 0);
             s || r && d || (o.a.play(o.a.rotate), this.undraw(), this.current = i, this.rotation = t, this.draw())
         },
-        drawPreview() {
+        drawPreview() { 
             a.cleanPreviewGrid(), this.next.tetromino.forEach(e => {
                 a.preview[e].classList.add("tetromino"), a.preview[e].classList.add("colorT" + this.next.number.toString())
             })
         },
-        drawSaved() {
+        drawSaved() { // Vẽ tetromino đã lưu trong lưới lưu trữ
             a.cleanSavedGrid(), this.saved.tetromino.forEach(e => {
                 a.saved[e].classList.add("tetromino"), a.saved[e].classList.add("colorT" + this.saved.number.toString())
             })
         },
-        draw() {
+        draw() { // Vẽ tetromino hiện tại trên lưới playground
             this.current.forEach(e => {
                 a.blocks[this.position + e].classList.add("tetromino"), a.blocks[this.position + e].classList.add("colorT" + this.number.toString())
             })
         },
-        drawNew() {
+        drawNew() { // Vẽ tetromino tiếp theo trong lưới xem trước
             this.initTetromino(), this.draw(), this.drawPreview()
         },
-        undraw() {
+        undraw() { // Xóa tetromino hiện tại khỏi lưới playground
             this.current.forEach(e => {
                 a.blocks[this.position + e].className = "playgroundBlock"
             })
         },
-        moveDown() {
+        moveDown() { // Di chuyển tetromino xuống một bước
             this.undraw(), this.position += n.init.columns, this.draw()
         },
-        dropDown() {
+        dropDown() { // Đưa tetromino xuống đáy của lưới ngay lập tức
             if (this.canMoveDown) {
                 for (this.undraw(); !this.freeze();) this.position += n.init.columns;
                 o.a.play(o.a.smack), o.a.justDropped = !0, this.draw()
             }
         },
-        moveLeft() {
+        moveLeft() { // Di chuyển tetromino sang trái một bước nếu không gặp phải ranh giới hoặc khối khác
             this.current.some(e => (e + this.position) % n.init.columns == 0) || this.lateralBlock("left") || (o.a.play(o.a.move), this.undraw(), this.position--, this.draw())
         },
-        pushDown() {
+        pushDown() { // Di chuyển tetromino xuống một bước, xem xét các ranh giới
             "init" === a.deletingAnimation && (!this.freeze() && this.canMoveDown ? (o.a.play(o.a.move), this.undraw(), this.position += n.init.columns, this.draw()) : (this.canMoveDown && o.a.play(o.a.land), this.canMoveDown = !1))
         },
-        moveRight() {
+        moveRight() { // Di chuyển tetromino sang phải một bước nếu không gặp phải ranh giới hoặc khối khác
             this.current.some(e => (e + this.position + 1) % n.init.columns == 0) || this.lateralBlock("right") || (o.a.play(o.a.move), this.undraw(), this.position++, this.draw())
         },
-        freeze() {
+        freeze() { // Cố định tetromino tại chỗ khi nó chạm đến đáy hoặc khối khác
             return !!this.current.some(e => a.blocks[this.position + e + n.init.columns].classList.contains("taken")) && (this.canMoveDown = !1, this.current.forEach(e => {
                 a.blocks[e + this.position].classList.add("taken")
             }), !0)
         },
-        lateralBlock(e) {
+        lateralBlock(e) { // Kiểm tra xem có khối nào ở bên trái hoặc phải của tetromino hiện tại không
             let t;
             return t = "right" === e ? 1 : -1, this.current.some(e => a.blocks[this.position + e + t].classList.contains("taken"))
         }
     };
+    // tetrominoes.js: end
     // input.js: Xử lí sự kiện đầu vào
     var d = i(4);
+    // Mũi tên trái, Mũi tên phải, Mũi tên xuống, Mũi tên lên (để thả khối nhanh xuống), Phím 'A' để xoay trái, Phím 'Z' để xoay phải, Phím 'E' để lưu khối
     let l = 37, m = 39, c = 40, u = 32, h = 90, p = 88, g = 67;
     const y = {
         handleKeyPress(e) {
@@ -350,32 +362,34 @@
             e ? (document.getElementById("touchControlContainer").addEventListener("click", this.handleTouchPress), document.getElementById("resetButton").addEventListener("click", this.handleReset), document.getElementById("startButton").addEventListener("click", this.handleStart), document.getElementById("backMenu").addEventListener("click", this.handleBackMenu), document.addEventListener("keydown", this.handleKeyPress)) : (document.getElementById("touchControlContainer").removeEventListener("click", this.handleTouchPress), document.getElementById("resetButton").removeEventListener("click", this.handleReset), document.getElementById("startButton").removeEventListener("click", this.handleReset), document.getElementById("backMenu").removeEventListener("click", this.handleReset), document.removeEventListener("keydown", this.handleKeyPress))
         }
     };
+    // inputs.js: end
     var v = i(5);
+    // game.js: Start
     const S = {
-        gameScore: 0, lines: 8, timerId: 0, gameStatut: "notStarted", gameMode: "", speed: 0, init() {
+        gameScore: 0, lines: 8, timerId: 0, gameStatut: "notStarted", gameMode: "", speed: 0, init() { // Khởi tạo trò chơi bằng cách tạo lưới, thiết lập bộ lắng nghe sự kiện và khôi phục trạng thái ban đầu
             a.generateAllGrid(), y.setListener(!0), this.restore()
         }, quit() {
             this.restore(), a.removeAllGrid(), document.getElementById("startButton").innerHTML = "Start", document.getElementById("startButton").classList.add("buttonPulse"), y.setListener(!1), o.a.stop(o.a.theme1)
-        }, restore() {
+        }, restore() { // Khôi phục trạng thái ban đầu của trò chơi, bao gồm điểm số, số dòng và trạng thái trò chơi
             this.gameScore = 0, this.lines = 0, n.init.gameMode[this.gameMode].init(), this.updateScore(0), this.gameStatut = "notStarted", d.display.endGame(!1), d.display.pause(!1), d.display.sidePanelInfo(), r.initSaved(), a.deletingAnimation = "init", clearInterval(this.timerId)
         }, start() {
             "lost" !== this.gameStatut && "end" !== this.gameStatut || this.reset(), "notStarted" === this.gameStatut && (o.a.playSong(o.a.playingTheme), r.drawNew(), document.getElementById("startButton").classList.remove("buttonPulse")), "pause" === this.gameStatut || "notStarted" === this.gameStatut ? (o.a.playSong(o.a.playingTheme), this.timerId = setInterval(this.run.bind(this), n.init.speedArray[this.speed - 1]), n.init.gameMode[this.gameMode].start(), document.getElementById("startButton").innerHTML = "Pause", document.getElementById("startButton").classList.remove("buttonPulse"), d.display.pause(!1), this.gameStatut = "play") : this.pause()
-        }, pause() {
+        }, pause() { // Tạm dừng trò chơi và hiển thị trạng thái tạm dừng
             o.a.pause(o.a.playingTheme), o.a.play(o.a.pauseSound), this.gameStatut = "pause", d.display.pause(!0), n.init.gameMode[this.gameMode].pause(), document.getElementById("startButton").innerHTML = "Resume", document.getElementById("startButton").classList.add("buttonPulse"), clearInterval(this.timerId)
         }, reset() {
             o.a.stop(o.a.playingTheme), a.cleanAllGrid(), a.generatePlaygroundGrid(), this.restore(), r.initSaved(), this.gameStatut = "notStarted", document.getElementById("startButton").innerHTML = "Start", document.getElementById("startButton").classList.add("buttonPulse")
         }, backMenu() {
             this.quit(), v.a.showMenu(!0)
-        }, saveTetromino() {
+        }, saveTetromino() { // Lưu lại tetromino hiện tại nếu có thể và vẽ tetromino đã lưu 
             r.canBeSaved && (r.saved.tetromino.length > 0 ? (r.undraw(), r.switchSaved(), r.drawSaved(), r.undraw(), r.draw()) : (r.saveTetromino(), r.drawSaved(), r.undraw(), r.drawNew()), o.a.play(o.a.save))
-        }, updateScore() {
+        }, updateScore() { // Cập nhật điểm số và hiển thị số dòng đã xóa
             const e = this.lines * this.lines * 10;
             this.gameScore += e, document.getElementById("score").innerHTML = this.gameScore, document.getElementById("lines").innerHTML = this.lines
-        }, increaseSpeed(e) {
+        }, increaseSpeed(e) { // Tăng tốc độ trò chơi và cập nhật hiển thị
             document.getElementById("speedBox").classList.add("flash"), setTimeout(() => {
                 document.getElementById("speedBox").classList.remove("flash")
             }, 700), clearInterval(this.timerId), this.speed += e, this.timerId = setInterval(this.run.bind(this), n.init.speedArray[this.speed - 1]), document.getElementById("speed").innerHTML = this.speed, o.a.play(o.a.speedup)
-        }, run() {
+        }, run() { // Chạy vòng lặp chính của trò chơi, kiểm tra các điều kiện kết thúc trò chơi và quản lý các hành động của tetromino
             if ("onGoing" === a.deletingAnimation) return;
             if (n.init.gameMode[this.gameMode].end()) return o.a.stop(o.a.playingTheme), void n.init.gameMode[this.gameMode].displayScore();
             const e = a.lineIsMade(), t = r.freeze();
@@ -388,9 +402,9 @@
                 o.a.justDropped ? o.a.toggleDrop() : o.a.play(o.a.land), a.deleteLine(e), a.deletingAnimation = "init", r.drawNew();
                 this.loseCondition() && (o.a.stop(o.a.playingTheme), o.a.play(o.a.gameover), this.stop(), this.gameStatut = "lost", "endless" === this.gameMode ? d.display.endGame(!0, "GAME END", this.gameScore, "points") : (d.display.endGame(!0, "GAME OVER", " ", " "), s.a.pause()))
             } else r.moveDown()
-        }, stop() {
+        }, stop() { // Dừng trò chơi và cập nhật hiển thị nút bắt đầu
             clearInterval(this.timerId), document.getElementById("startButton").innerHTML = "Restart"
-        }, loseCondition: () => r.current.some(e => a.blocks[r.position + e].classList.contains("taken"))
+        }, loseCondition: () => r.current.some(e => a.blocks[r.position + e].classList.contains("taken"))// Kiểm tra điều kiện thua cuộc của trò chơi
     }
 }, function (e, t, i) {
     "use strict";
@@ -398,21 +412,25 @@
         return s
     }));
     var n = i(0);
+    // timer.js: quản lý thời gian trong ứng dụng
     const s = {
-        value: 0, timerCount: 0, timerDisplay: 0, display() {
+        value: 0, // Giá trị hiện tại của bộ đếm thời gian
+        timerCount: 0, // Biến lưu trữ định danh (ID) của setInterval để tăng hoặc giảm thời gian
+        timerDisplay: 0, //  Biến lưu trữ định danh (ID) của setInterval để cập nhật hiển thị thời gian
+        display() { // Cập nhật giá trị hiển thị của bộ đếm thời gian trên trang web
             this.timerDisplay = setInterval(() => {
                 let e;
                 e = this.value <= 0 ? 0 : Math.round(this.value), document.getElementById("timer").innerHTML = e
             }, n.init.timerDisplayPrecision)
-        }, increment() {
+        }, increment() { // Tăng giá trị của bộ đếm thời gian
             this.timerCount = setInterval(() => {
                 this.value += n.init.timerCountPrecision / 1e3, this.value = Math.round(1e3 * this.value) / 1e3
             }, n.init.timerCountPrecision)
-        }, decrement() {
+        }, decrement() { // Giảm giá trị của bộ đếm thời gian
             this.timerCount = setInterval(() => {
                 this.value -= n.init.timerCountPrecision / 1e3, this.value = Math.round(1e3 * this.value) / 1e3
             }, n.init.timerCountPrecision)
-        }, pause() {
+        }, pause() { // Tạm dừng bộ đếm thời gian
             clearInterval(this.timerCount), clearInterval(this.timerDisplay)
         }
     }
@@ -422,31 +440,34 @@
         return o
     }));
     var n = i(2), s = i(3);
+    // display.js: quản lí hiển thị giao diện
     const o = {
-        tactil: !1, playgroundPanel(e) {
+        tactil: !1, playgroundPanel(e) { // Hiển thị or ẩn các sidePane
             e ? (document.getElementById("sidePanelRight").classList.remove("hide"), document.getElementById("sidePanelLeft").classList.remove("hide"), document.getElementById("playgroundContainer").classList.remove("hide")) : (document.getElementById("sidePanelRight").classList.add("hide"), document.getElementById("sidePanelLeft").classList.add("hide"), document.getElementById("playgroundContainer").classList.add("hide"))
-        }, mainMenu(e) {
+        }, mainMenu(e) { // Hiển thị or ẩn Menu chính 
             e ? (document.getElementById("mainMenu").classList.remove("hide"), this.touchControl(!1)) : (document.getElementById("mainMenu").classList.add("hide"), this.touchControl(this.tactil))
-        }, sidePanelInfo() {
+        }, sidePanelInfo() { // Cập nhật thông tin hiển thị trên bảng điều khiển bên cạnh (side panel)
             document.getElementById("speed").innerHTML = n.game.speed.toString(), document.getElementById("timer").innerHTML = Math.floor(s.a.value)
-        }, endGame(e, t = "GAME OVER", i, n) {
+        }, endGame(e, t = "GAME OVER", i, n) { // hiển thị hoặc ẩn màn hình kết thúc trò chơi
             const s = e ? "flex" : "none";
             document.getElementById("endGame").style.display = s, e && (document.getElementById("endGameTitle").innerHTML = t, i >= 0 && (document.getElementById("finalScore").innerHTML = i), n && (document.getElementById("scoreUnit").innerHTML = n))
-        }, pause(e) {
+        }, pause(e) { // hiển thị hoặc ẩn màn hình tạm dừng trò chơi
             const t = e ? "block" : "none";
             document.getElementById("gamePaused").style.display = t
-        }, touchControl(e) {
+        }, touchControl(e) { // hiển thị hoặc ẩn điều khiển cảm ứng
             document.getElementById("touchControlContainer").style.display = e ? "flex" : "none"
         }
     }
+    // display.js: end
 }, function (e, t, i) {
     "use strict";
     i.d(t, "a", (function () {
         return a
     }));
     i(3);
+    // menu.js: Hiển thị các giao diện menu trò chơi
     const {display: n} = i(4), {game: s} = i(2), {init: o} = i(0), a = {
-        showMenu(e) {
+        showMenu(e) { // hiển thị hoặc ẩn menu chính dựa trên giá trị của tham số bool
             n.mainMenu(e), n.playgroundPanel(!e)
         }, endlessMode() {
             this.showMenu(!1), s.gameMode = "endless", s.init()
@@ -456,9 +477,11 @@
             this.showMenu(!1), n.mainMenu(!1), n.playgroundPanel(!0), s.gameMode = "sprint", s.init()
         }
     }
+    // menu.js: end
 }, function (e, t, i) {
     "use strict";
     i.r(t);
+    // index.js: Start
     var n = i(5), s = i(0), o = i(4), a = i(1), r = i(2);
     document.getElementById("endlessMode").addEventListener("click", () => n.a.endlessMode()), document.getElementById("rushMode").addEventListener("click", () => n.a.rushMode()), document.getElementById("sprintMode").addEventListener("click", () => n.a.sprintMode()), document.getElementById("musicSwitch").addEventListener("change", (function () {
         this.checked ? (a.a.enableMusic(!0), "play" === r.game.gameStatut && a.a.playSong(a.a.theme1)) : (a.a.enableMusic(!1), a.a.stop(a.a.theme1))
