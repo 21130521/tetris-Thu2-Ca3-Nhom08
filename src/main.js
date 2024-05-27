@@ -282,6 +282,7 @@
             const e = this.saved;
             this.saveTetromino(), this.number = e.number, this.rotation = e.rotation, this.current = this.theTetrominoes[this.number][this.rotation], this.position = Math.floor(n.init.columns / 2 - 1), this.canBeSaved = !1, this.canMoveDown = !0
         },
+        // Trọng
         rotateTetromino(e) { // Xoay tetromino sang trái hoặc phải dựa trên hướng
             let t = this.rotation;
             "right" === e ? t++ : t--, t >= this.theTetrominoes[this.number].length && (t = 0), t < 0 && (t = this.theTetrominoes[this.number].length - 1);
@@ -291,6 +292,7 @@
                 d = i.some(e => (e + this.position + 1) % n.init.columns == 0);
             s || r && d || (o.a.play(o.a.rotate), this.undraw(), this.current = i, this.rotation = t, this.draw())
         },
+        // Trọng
         drawPreview() { 
             a.cleanPreviewGrid(), this.next.tetromino.forEach(e => {
                 a.preview[e].classList.add("tetromino"), a.preview[e].classList.add("colorT" + this.next.number.toString())
