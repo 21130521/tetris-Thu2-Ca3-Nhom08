@@ -258,7 +258,7 @@
         next: {}, // Lưu trữ thông tin tetromino tiếp theo
         theTetrominoes: [], // Mảng chứa tất cả các hình dạng tetromino và các trạng thái xoay của chúng
         theTetrominoesPreview: [], // Mảng chứa các hình dạng tetromino và các trạng thái xoay để xem trước
-       
+        createTetrominoes: e => [[[1, e + 1, 2 * e + 1, 3 * e + 1], [0, 1, 2, 3], [1, e + 1, 2 * e + 1, 3 * e + 1], [0, 1, 2, 3]], [[0, e, e + 1, e + 2], [1, 2, e + 1, 2 * e + 1], [0, 1, 2, e + 2], [1, e + 1, 2 * e, 2 * e + 1]], [[2, e, e + 1, e + 2], [1, e + 1, 2 * e + 1, 2 * e + 2], [0, 1, 2, e], [0, 1, e + 1, 2 * e + 1]], [[1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2], [1, 2, e + 1, e + 2]], [[1, 2, e, e + 1], [1, e + 1, e + 2, 2 * e + 2], [1, 2, e, e + 1], [1, e + 1, e + 2, 2 * e + 2]], [[0, 1, e + 1, e + 2], [2, e + 1, e + 2, 2 * e + 1], [0, 1, e + 1, e + 2], [2, e + 1, e + 2, 2 * e + 1]], [[1, e, e + 1, e + 2], [1, e + 1, e + 2, 2 * e + 1], [0, 1, 2, e + 1], [2, e + 1, e + 2, 2 * e + 2]]],
         initPreview() { // Khởi tạo tetromino tiếp theo để xem trước
             const e = Math.floor(Math.random() * this.theTetrominoes.length),
                 t = Math.floor(Math.random() * this.theTetrominoes[this.number].length),
