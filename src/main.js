@@ -303,19 +303,23 @@
                 a.saved[e].classList.add("tetromino"), a.saved[e].classList.add("colorT" + this.saved.number.toString())
             })
         },
+        // 21130521_NguyenDucTai
         draw() { // Vẽ tetromino hiện tại trên lưới playground
             this.current.forEach(e => {
                 a.blocks[this.position + e].classList.add("tetromino"), a.blocks[this.position + e].classList.add("colorT" + this.number.toString())
             })
         },
+        // 21130521_NguyenDucTai
         drawNew() { // Vẽ tetromino tiếp theo trong lưới xem trước
             this.initTetromino(), this.draw(), this.drawPreview()
         },
+        // 21130521_NguyenDucTai
         undraw() { // Xóa tetromino hiện tại khỏi lưới playground
             this.current.forEach(e => {
                 a.blocks[this.position + e].className = "playgroundBlock"
             })
         },
+        // 21130521_NguyenDucTai
         moveDown() { // Di chuyển tetromino xuống một bước
             this.undraw(), this.position += n.init.columns, this.draw()
         },
